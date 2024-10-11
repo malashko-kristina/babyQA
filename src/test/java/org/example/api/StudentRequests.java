@@ -8,22 +8,22 @@ import static org.hamcrest.Matchers.hasKey;
 public class StudentRequests {
     public static String createStudent(String body) {
         return given()
-                .header("Content-Type", "application/json")
-                .body(body)
+                        .header("Content-Type", "application/json")
+                        .body(body)
                 .when()
-                .post(RestAssured.baseURI + "/student")
+                        .post(RestAssured.baseURI + "/student")
                 .then()
-                .assertThat().statusCode(HttpStatus.SC_CREATED)
-                .body("$", hasKey("_id"))
-                .extract().body().asString();  // Если нужно вернуть ответ как строку
+                        .assertThat().statusCode(HttpStatus.SC_CREATED)
+                        .body("$", hasKey("_id"))
+                        .extract().body().asString();  // Если нужно вернуть ответ как строку
     }
 
     public static void deleteStudent(String id) {
         given()
-                .delete("/student/" + id)
+                        .delete("/student/" + id)
                 .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+                        .assertThat()
+                        .statusCode(HttpStatus.SC_OK);
     }
 }
 
