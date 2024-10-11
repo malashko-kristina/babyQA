@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
 import org.example.api.UnicornRequests;
+import org.example.api.models.Unicorn;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,10 +22,8 @@ public class UnicornTest {
     public void userShouldBeAbleToCreateUnicorn() {
 
         // Step 1. Create a unicorn
-        String unicornId = UnicornRequests.createUnicorn("{\n" +
-                "  \"name\":  \"Martha\",\n" +
-                "  \"colour\": \"pink\"\n" +
-                "}");
+        Unicorn unicorn1 = new Unicorn("Loly", "pink");
+        String unicornId = UnicornRequests.createUnicorn(unicorn1.toJson());
 
         // Step 2. Check if the unicorn was created
         System.out.println(unicornId);
@@ -35,19 +34,15 @@ public class UnicornTest {
 
 
         // Step 1. Create a unicorn
-        String unicornId = UnicornRequests.createUnicorn("{\n" +
-                "  \"name\":  \"Martha\",\n" +
-                "  \"colour\": \"pink\"\n" +
-                "}");
+        Unicorn unicorn1 = new Unicorn("Loly", "pink");
+        String unicornId = UnicornRequests.createUnicorn(unicorn1.toJson());
 
         // Step 2. Check if the unicorn was created
         UnicornRequests.getCreatedUnicorn(unicornId);
 
         // Step 3. Change unicorn tail's colour
-        UnicornRequests.updateCreatedUnicorn("{\n" +
-                "  \"name\":  \"Martha\",\n" +
-                "  \"colour\": \"blue\"\n" +
-                "}",unicornId);
+        Unicorn newUnicorn = new Unicorn("Loly", "blue");
+        UnicornRequests.updateCreatedUnicorn(newUnicorn.toJson(), unicornId);
 
         // Step 4. Check the tail's colour was changed
         String actualColour = UnicornRequests.getCreatedUnicornColour(unicornId);
@@ -56,10 +51,8 @@ public class UnicornTest {
     @Test
     public void userShouldBeAbleToDeleteUnicorn () {
         // Step 1. Create a unicorn
-        String unicornId = UnicornRequests.createUnicorn("{\n" +
-                "  \"name\":  \"Martha\",\n" +
-                "  \"colour\": \"pink\"\n" +
-                "}");
+        Unicorn unicorn1 = new Unicorn("Loly", "pink");
+        String unicornId = UnicornRequests.createUnicorn(unicorn1.toJson());
 
         // Step 2. Check if the unicorn was created
         UnicornRequests.getCreatedUnicorn(unicornId);
