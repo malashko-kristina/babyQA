@@ -1,0 +1,25 @@
+### Create an unicorn
+POST https://crudcrud.com/api/b521b05f9dad40f3a4940d220203195b/unicorn
+Content-Type: application/json
+
+{
+  "name":  "Martha",
+  "colour": "pink"
+}
+
+### Get info about created unicorn
+GET https://crudcrud.com/api/b521b05f9dad40f3a4940d220203195b/unicorn/67093d57a0a8cd03e818a4a1
+Accept: application/json
+
+### Change info about unicorn's tail colour
+PUT https://crudcrud.com/api/b521b05f9dad40f3a4940d220203195b/unicorn/67093d57a0a8cd03e818a4a1
+Content-Type: application/json
+
+{
+  "name":  "Martha",
+  "colour": "blue"
+}
+
+### Get info about created unicorn
+DELETE https://crudcrud.com/api/b521b05f9dad40f3a4940d220203195b/unicorn/67093d57a0a8cd03e818a4a1
+Accept: application/json
