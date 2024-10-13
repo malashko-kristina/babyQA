@@ -1,0 +1,18 @@
+DELETE https://crudcrud.com/api/00ef3def9b7a4acca3b358a93c028fa3/student/6707c428a0a8cd03e818a312
+Accept: application/json
+
+###
+GET https://crudcrud.com/api/00ef3def9b7a4acca3b358a93c028fa3/student/6707c428a0a8cd03e818a312
+Accept: application/json
+
+###
+POST https://crudcrud.com/api/00ef3def9b7a4acca3b358a93c028fa3/student
+Content-Type: application/json
+
+{
+  "name": "Alex Pshe",
+  "grade": 11
+}
+
+###
+
