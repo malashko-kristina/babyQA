@@ -9,9 +9,7 @@ import org.example.api.models.Student;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasKey;
 
 public class SimpleTest {
     @BeforeAll
@@ -25,9 +23,11 @@ public class SimpleTest {
         // given - when - then BDD
 
         // сериализация из JSON в объект и наоборот
-        Student student1 = new Student("Helen Carter", 6);
+        Student student1 = Student.builder()
+                        .name("Helen Carter")
+                                .grade(8).build();
 
-        StudentRequests.createStudent(student1.toJson());
+        StudentRequests.createStudent(student1);
     }
 
     @Test
@@ -41,16 +41,16 @@ public class SimpleTest {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
 
         // ШАГ 1: СОЗДАНИЕ СТУДЕНТА
-        Student student2 = new Student("Lola Polo", 4);
-        String id = StudentRequests.createStudent(student2.toJson());
+        Student student2 = Student.builder().name("Lola Pomidoro").grade(11).build();
+        Student createdStudent = StudentRequests.createStudent(student2);
 
 
         // ШАГ 2: УДАЛЕНИЕ СТУДЕНТА
-        StudentRequests.deleteStudent(id);
+        StudentRequests.deleteStudent(createdStudent.getId());
 
         // ШАГ 3: ПРОВЕРИТЬ, ЧТО СТУДЕНТ БОЛЬШЕ НЕДОСТУПЕН
         given()
-                .get("/student" + id)
+                .get("/student" + createdStudent.getId())
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_NOT_FOUND);
